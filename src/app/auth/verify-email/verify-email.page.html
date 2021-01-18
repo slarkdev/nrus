@@ -1,0 +1,38 @@
+<ion-content fullscreen class="bg">
+  <img class="logo-image" src="../../assets/logo-shessira.png" alt="logo">
+
+  <ion-toolbar color='danger'>
+    <ion-segment value='login'>
+      <ion-segment-button value='register' layout="icon-start">
+        <ion-icon name="person-add-outline" size='small'></ion-icon>
+        <ion-label>Verificar Correo</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+
+<div class="login-register" *ngIf="user$ | async as user">
+  <ion-row>
+    <ion-col>
+      <h2> Gracias por registrarte </h2>
+      <p>
+        Enviamos un mensaje de confirmación a su correo <strong> {{ user?.email}} </strong>
+      </p>
+      <p>
+        Por favor revisa tu bandeja de entrada y haz click en el enlace enviado para verificar tu correo
+      </p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button type='button' color='danger' (click)='onSendEmail()' expand='block'>Volver a enviar mensaje</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <p>¿Tiene una cuenta? <a [routerLink]="['/login']">Iniciar Sesión </a></p>
+    </ion-col>
+  </ion-row>
+</div>
+
+</ion-content>

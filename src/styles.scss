@@ -1,0 +1,129 @@
+@import "~@swimlane/ngx-datatable/index.css";
+@import "~@swimlane/ngx-datatable/themes/material.scss";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
+
+@font-face {
+    font-family: "Ubuntu-Regular";
+    src: url("./assets/fonts/Ubuntu-Regular.ttf");
+}
+
+:root {
+    --ion-font-family: "Ubuntu-Regular";
+    font-size: 1rem;
+    
+}
+.loading{
+    color: var(--ion-color-danger-tint) !important;
+    --spinner-color: var(--ion-color-danger-tint) !important;
+    --background: var(ion-color-medium-tint) !important;
+}
+
+ion-avatar {
+    height: 10rem;
+    width: 10rem;
+    margin: auto;
+    // margin-top: 10px;
+    border: 5px solid var(--ion-color-danger-tint);
+}
+ion-thumbnail{
+    margin: auto;
+}
+ion-button {
+    --border-radius: 20px;
+    height: 45px;
+}
+
+ion-fab-button {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.icon-button {
+    border: 2px solid var(--ion-color-danger-contrast);
+    border-radius: 50%;
+    padding: 7px;
+    margin-right: 10px;
+}
+.icon-button-2{
+    border: 2px solid var(--ion-color-danger);
+    border-radius: 50%;
+    padding: 4px;
+    margin-right: 5px;
+    font-size: 20px !important;
+}
+.bg {
+    --background: url("./assets/login-background.png") 0 0/100% 100% no-repeat !important;
+    background-size: cover;
+    text-align: center;
+}
+
+.menu-design {
+    --background: url("./assets/menu-bg4.png") 0 0/100% 100% no-repeat !important;
+    background-size: cover;
+    text-align: center;
+}
+
+ion-card-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: 800px !important;
+    margin: auto;
+}
+ion-searchbar {
+    text-align: left;
+    --border-radius: 20px !important;
+}
+
+ion-item {
+    border-radius: 20px;
+}
+
+ngx-datatable {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+    border-radius: 0 0 20px 20px !important;
+}
+datatable-body-cell {
+    padding: 0.2rem 0 0 0.5rem !important;
+    // font-size: 10px;
+}
+
+.datatable-header-cell {
+    background-color: var(--ion-color-danger) !important;
+    color: whitesmoke !important;
+}
+
+.datatable-scroll {
+    width: 100% !important;
+}
+
+.login-register {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.logo-image {
+    margin-top: 25px;
+    margin-bottom: 5px;
+    width: 200px;
+}
+
+.nombreFoto {
+    font-size: 8px;
+}
+
+.btn-pequeno {
+    height: 30px;
+    width: 40px;
+}
+.btn-cuadrado {
+    height: 28px;
+    margin-top: -5px;
+    --border-radius: 5px !important;
+}
+
+.grafico {
+    margin: auto;
+    border-radius: 0 0 20px 20px !important;
+}

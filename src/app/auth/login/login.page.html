@@ -1,0 +1,59 @@
+<ion-content fullscreen class="bg">
+  <img class='logo-image' src="../../assets/logo-shessira.png" alt="logo">
+
+  <ion-toolbar color='danger'>
+    <ion-segment (ionChange)="login = !login" value='login'>
+      <ion-segment-button value='login' layout="icon-start">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-label>Ingresar</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value='register' layout="icon-start">
+        <ion-icon name="person-add-outline" size='small'></ion-icon>
+        <ion-label>Registrarse</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div class="login-register" *ngIf='login; else registrarse'>
+    <form [formGroup]='loginForm' (ngSubmit)='onLogin()'>
+      <ion-row>
+        <ion-col>
+          <ion-item color='light'>
+            <ion-icon slot='start' name='mail'></ion-icon>
+            <ion-input type='email' placeholder='Correo' formControlName='email' required clearInput></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item color='light'>
+            <ion-icon slot='start' name="lock-closed"></ion-icon>
+            <ion-input [type]='show ? "text" : "password"' placeholder='Contraseña' formControlName='password' required></ion-input>
+            <ion-icon *ngIf='!show' slot='end' name="eye" (click)='show=!show'></ion-icon>
+            <ion-icon *ngIf='show' slot='end' name="eye-off" (click)='show=!show'></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type='submit' expand='block' color='danger' [disabled]='!loginForm.valid'>Iniciar Sesión</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size='6'>
+          <ion-button type='button' expand='block' color='danger' (click)='onGoogleLogin()'>
+            <ion-icon name='logo-google'></ion-icon></ion-button>
+        </ion-col>
+        <ion-col size='6'>
+          <ion-button type='button' expand='block' color='primary' (click)='onFacebookLogin()'>
+            <ion-icon name='logo-facebook'></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+
+  <ng-template #registrarse>
+    <app-register></app-register>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color='danger'>
+    <ion-buttons slot="start">
+      <ion-menu-button menu='main-menu'></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">SHESSIRA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-menu side="start" type="overlay" menuId='main-menu' content-id='main'>
+    <ion-content class="menu-design">
+      <ion-toolbar color='danger' class="menu-profile">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-avatar (click)='perfil()'>
+                <ion-img [src]='user.photoURL' alt='imagen-perfil'></ion-img>
+              </ion-avatar>
+            </ion-item>            
+          </ion-col>          
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-title>{{ user.displayName.toUpperCase() }}</ion-title>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="email">
+            <ion-note> {{ user.email}}</ion-note>
+          </ion-col>
+        </ion-row>
+      </ion-toolbar>
+
+      <ion-list lines='full'>
+        <ion-menu-toggle auto-hide="true">
+          
+          <ion-item (click)='compras()'>
+            <ion-icon name="cart" slot='start'></ion-icon>
+            <ion-label>Compras</ion-label>
+          </ion-item>
+
+          <ion-item (click)='ventas()'>
+            <ion-icon name="cash" slot='start'></ion-icon>
+            <ion-label>Ventas</ion-label>
+          </ion-item>
+
+          <ion-item (click)='resumen()'>
+            <ion-icon name="cellular" slot='start'></ion-icon>
+            <ion-label>Resumen</ion-label>
+          </ion-item>
+
+          <ion-item (click)='reciclaje()'>
+            <ion-icon name="trash-bin" slot='start'></ion-icon>
+            <ion-label>Papelera de Reciclaje</ion-label>
+          </ion-item>
+
+          <ion-item (click)='logout()'>
+            <ion-icon name="arrow-undo" slot='start'></ion-icon>
+            <ion-label>Cerrar Sesión</ion-label>
+          </ion-item>
+
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id='main'></ion-router-outlet>
+</ion-content>

@@ -1,0 +1,180 @@
+<ion-header>
+  <ion-toolbar color='danger'>
+    <ion-title class="ion-text-center">VENTAS</ion-title>
+    <ion-icon name='cloud-download' class="icon-button" color='light' slot='end' (click)='descargar()'></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg">
+  <ion-card-content>
+    <ion-row>
+      <ion-col size='9'>
+        <ion-item>
+          <ion-icon name='calendar-outline' slot='start'></ion-icon>
+          <ion-datetime displayFormat="MMMM del YYYY" pickerFormat='MMM/YYYY' min="2019-01-01" [monthShortNames]="meses"
+            [monthNames]="meses" [(ngModel)]='mes' (ionChange)='filtrarVentas()'></ion-datetime>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button type='button' size='small' (click)='refresh()' color='danger'>
+          <ion-icon name='refresh-outline'>
+          </ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size='9'>
+        <ion-item>
+          <ion-icon name='search' slot='start'></ion-icon>
+          <ion-input clearInput placeholder='buscar' type='text' (keyup)='filtrar($event)'></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-fab-button color='danger' type='button' size='small' (click)='add()'>
+          <ion-icon name='add'></ion-icon>
+        </ion-fab-button>
+
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="show">
+      <form [formGroup]='ventaForm' (ngSubmit)='modify ? updateVenta() :addVenta()'>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position='fixed'>Venta</ion-label>
+              <ion-input clearInput maxlength='30' type='text' formControlName='ConceptoVenta'></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position='fixed'>Monto</ion-label>
+              <ion-input clearInput maxlength='30' type='number' formControlName='Monto' step="0.01"
+                class="ion-text-end">
+                S/
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position='fixed'>Fecha</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat='DD/MMM/YYYY' formControlName='Fecha'
+                placeholder="Seleccionar" doneText='Listo' cancelText='Salir' display-timezone="America/Lima">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position='fixed'>Observación</ion-label>
+              <ion-input type='text' formControlName='Observacion'></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size='9'>
+            <ion-item>
+              <ion-label position='fixed'>Foto</ion-label>
+              <ion-input type='text' formControlName='NombreFoto'
+                [value]="util.soloFecha(ventaForm.value.Fecha) + '_' + ventaForm.value.ConceptoVenta + '.jpg'" disabled>
+              </ion-input>
+
+              <ion-thumbnail slot="end">
+                <ion-img [src]="ventaForm.value.Foto"></ion-img>
+              </ion-thumbnail>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-fab horizontal="end" size='small'>
+              <ion-fab-button (click)="tomarFoto()" color='danger'>
+                <ion-icon name="camera"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col *ngIf='!modify'>
+            <ion-button type='submit' expand='block' [disabled]="!ventaForm.valid" color='danger'>Guardar</ion-button>
+          </ion-col>
+          <ion-col *ngIf='modify'>
+            <ion-button type='submit' expand='block' color='success' [disabled]="!ventaForm.valid">Modificar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+
+    <ion-toolbar color='danger'>
+      <ion-row>
+        <ion-col>
+          <ion-label>TOTAL:</ion-label>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          S/
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-label>{{ resumen.Ventas | number:'1.2-2' }} </ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-button class="btn-cuadrado" type='button' size='small' (click)='verTodo()' fill='outline' color='light'>
+            Ver Todo
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+
+
+    <ngx-datatable class="material expandable" [rows]="ventas" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="'auto'">
+
+      <!--  [scrollbarH]="true" -->
+      <ngx-datatable-column name='FECHA' prop='Fecha'>
+        <ng-template let-row='row' ngx-datatable-cell-template>
+          {{ row.Fecha | date: 'dd/MM/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name='VENTAS' prop='ConceptoVenta'>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name='FOTO' prop='Foto' [sortable]='false'>
+        <ng-template let-row='row' ngx-datatable-cell-template>
+          <div (click)='verFoto(row)' class="ion-text-center">
+            <ion-thumbnail>
+              <ion-img [src]="row.Foto"></ion-img>
+            </ion-thumbnail>
+            <ion-note class="nombreFoto" color='primary'>{{ row.NombreFoto }}</ion-note>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      
+      <ngx-datatable-column name='MONTO' prop='Monto'>
+        <ng-template let-row='row' ngx-datatable-cell-template>
+          <div class="ion-text-end">
+            {{ row.Monto | number:'1.2-2' }}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+
+    
+
+      <ngx-datatable-column name='ACCIONES' [sortable]='false'>
+        <ng-template let-row='row' ngx-datatable-cell-template>
+          <div *ngIf='!hideButtons'>
+            <ion-icon name='pencil' class="icon-button-2" color='danger' (click)='mod(row)'></ion-icon>
+            <ion-icon name='trash' class="icon-button-2" color='danger' (click)='delVenta(row)'></ion-icon>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </ion-card-content>
+  <br>
+</ion-content>

@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color='danger'>
+    <ion-title class="ion-text-center">MI PERFIL</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-card-content>
+    <form [formGroup]='perfilForm'>
+      <ion-row>      
+          <ion-avatar (click)='verFoto()'>
+            <ion-img [src]='perfilForm.controls.PhotoURL.value' alt='imagen-perfil'></ion-img>
+          </ion-avatar>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button class='btn-cuadrado' size='small' color='danger' (click)='tomarFoto()'> Cambiar Imagen</ion-button>
+        </ion-col>
+    </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item color='light'>
+            <ion-icon slot='start' name='person'></ion-icon>
+            <ion-input type='text' formControlName='nombres' placeholder="Nombres" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item color='light'>
+            <ion-icon slot='start' name='mail'></ion-icon>
+            <ion-input type='email' formControlName='email' placeholder="Correo" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+    </form>
+
+    <form [formGroup]='passwordForm' (ngSubmit)='actualizarDatos()'>
+      <ion-row>
+        <ion-col>
+          <ion-item color='light'>
+            <ion-icon slot='start' name="lock-closed"></ion-icon>
+            <ion-input [type]='show ? "text" : "password"' placeholder="Contraseña" formControlName='password'>
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item color='light'>
+            <ion-icon slot='start' name="lock-closed"></ion-icon>
+            <ion-input [type]='show ? "text" : "password"' placeholder="Repetir Contraseña"
+              formControlName='confirmPassword'></ion-input>
+            <ion-icon *ngIf='!show' slot='end' name="eye" (click)='show=!show'></ion-icon>
+            <ion-icon *ngIf='show' slot='end' name="eye-off" (click)='show=!show'></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type='submit' expand='block' color='danger' [disabled]='!perfilForm.valid'>Actualizar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-card-content>
+</ion-content>
